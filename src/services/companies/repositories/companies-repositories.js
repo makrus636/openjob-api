@@ -1,0 +1,81 @@
+import { Pool } from 'pg';
+
+class CompaniesRepositories {
+  constructor() {
+    this._pool = new Pool();
+  }
+
+  async createCompany({ name, location, description }) {
+    const id = `company-${Date.now()}`;
+    const createdAt = new Date().toISOString();
+    const updatedAt = createdAt;
+    const query = {
+      text: 'INSERT INTO companies VALUES($1, $2, $3, $4, $5, $6) RETURNING id',
+      values: [id, name, location, description, createdAt, updatedAt],
+    };
+    const result = await this._pool.query(query);
+    if (!result.rowCount) {
+      return false;
+    }
+    return result.rows[0].id;
+  }
+
+  async getCompanyById(id) {
+    const query = {
+      text: 'SELECT * FROM companies WHERE id = $1',
+      values: [id],
+    };
+    const result = await this._pool.query(query);
+    if (!result.rowCount) {
+      return false;
+    }
+    return result.rows[0];
+  }
+
+  async getAllCompanies() {
+    const query = {
+      text: 'SELECT id, name FROM companies',
+    };
+    const result = await this._pool.query(query);
+
+    return result.rows;
+  }
+
+  async updateCompanyById(id, { name, location, description }) {
+    const updateAt = new Date().toISOString();
+    const query = {
+      text: 'UPDATE companies SET name = $1, location = $2, description = $3, updated_at = $4 WHERE id = $5',
+      values: [name, location, description, updateAt, id],
+    };
+    const result = await this._pool.query(query);
+    if (!result.rowCount) {
+      return false;
+    }
+    return result.rows;
+  }
+
+  async deleteCompanyById(id) {
+    const query = {
+      text: 'DELETE FROM companies WHERE id = $1',
+      values: [id],
+    };
+    const result = await this._pool.query(query);
+    if (!result.rowCount) {
+      return false;
+    }
+    return result.rows;
+  }
+
+  async verifyNewName(name) {
+    const query = {
+      text: 'SELECT name FROM companies WHERE name = $1',
+      values: [name],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows.length > 0;
+  }
+}
+
+export default new CompaniesRepositories();
