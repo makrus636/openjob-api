@@ -31,3 +31,11 @@ export const UpdateCompaniesPayloadSchema = Joi.object({
   description: Joi.string(),
   location: Joi.string().required(),
 });
+
+export const CategoriesPayloadSchema = Joi.object({
+  name: Joi.string().required(),
+});
+
+export const UpdateCategoriesPayloadSchema = Joi.object({
+  name: Joi.string().required(),
+});
