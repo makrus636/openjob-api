@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import Joi from 'joi';
 
 export const UsersPayloadSchema = Joi.object({
@@ -38,4 +39,18 @@ export const CategoriesPayloadSchema = Joi.object({
 
 export const UpdateCategoriesPayloadSchema = Joi.object({
   name: Joi.string().required(),
+});
+
+export const JobPayloadSchema = Joi.object({
+  title: Joi.string().required(),
+  description: Joi.string().required(),
+  company_id: Joi.string().required(),
+  category_id: Joi.string().required(),
+});
+
+export const UpdateJobPayloadSchema = Joi.object({
+  title: Joi.string().required(),
+  description: Joi.string().required(),
+  company_id: Joi.string(),
+  category_id: Joi.string(),
 });
