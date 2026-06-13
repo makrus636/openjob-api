@@ -54,3 +54,13 @@ export const UpdateJobPayloadSchema = Joi.object({
   company_id: Joi.string(),
   category_id: Joi.string(),
 });
+
+export const ApplicationsPayloadSchema = Joi.object({
+  job_id: Joi.string().required(),
+  user_id: Joi.string().required(),
+  status: Joi.string().required(),
+});
+
+export const UpdateApplicationsPayloadSchema = Joi.object({
+  status: Joi.string().required(),
+});

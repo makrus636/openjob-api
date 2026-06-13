@@ -72,6 +72,16 @@ export const up = (pgm) => {
       notNull: true,
     },
   });
+  pgm.createConstraint(
+    'jobs',
+    'fk_jobs.company_id_companies.id',
+    'FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE'
+  );
+  pgm.createConstraint(
+    'jobs',
+    'fk_jobs.category_id_categories.id',
+    'FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE'
+  );
 };
 
 /**

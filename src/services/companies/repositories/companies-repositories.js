@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import { nanoid } from 'nanoid';
 
 class CompaniesRepositories {
   constructor() {
@@ -6,7 +7,7 @@ class CompaniesRepositories {
   }
 
   async createCompany({ name, location, description }) {
-    const id = `company-${Date.now()}`;
+    const id = `company-${nanoid(16)}`;
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
     const query = {

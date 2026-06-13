@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import { nanoid } from 'nanoid';
 
 class JobsRepositories {
   constructor() {
@@ -9,7 +10,7 @@ class JobsRepositories {
     companyId, categoryId, title, description, jobType, experienceLevel,
     locationType, locationCity, salaryMin, salaryMax, isSalaryVisible, status,
   }) {
-    const id = `job-${Date.now()}`;
+    const id = `job-${nanoid(16)}`;
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
     const query = {

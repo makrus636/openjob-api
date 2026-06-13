@@ -6,7 +6,7 @@ import { InvariantError, NotFoundError } from '../../../exceptions/index.js';
 export const createJob = async (req, res, next) => {
   const {
     company_id, category_id, title, description, job_type, experience_level,
-    location_type, location_city, salary_min, salary_max, is_salary_visible, status,
+    location_type, location_city = '-', salary_min = 0, salary_max = 0, is_salary_visible = false, status,
   } = req.body;
 
   const job = await jobRepositories.createJob({

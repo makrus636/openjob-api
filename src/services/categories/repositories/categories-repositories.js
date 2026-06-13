@@ -1,4 +1,5 @@
 import { Pool } from 'pg';
+import { nanoid } from 'nanoid';
 
 class CategoriesRepositories {
   constructor() {
@@ -6,7 +7,7 @@ class CategoriesRepositories {
   }
 
   async createCategory({ name }) {
-    const id = `category-${Date.now()}`;
+    const id = `category-${nanoid(16)}`;
     const createAt = new Date().toISOString();
     const updateAt = createAt;
     const query = {
